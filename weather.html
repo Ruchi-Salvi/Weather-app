@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #87CEEB;
+            padding: 20px;
+            transition: background 0.5s ease;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        select, button {
+            margin: 10px;
+            padding: 10px;
+            width: 85%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        .time {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .weather-icon {
+            font-size: 50px;
+            margin: 10px;
+        }
+        .advice {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Weather App</h2>
+        <select id="city">
+            <option value="Mumbai">Mumbai, Maharashtra</option>
+            <option value="Delhi">Delhi, Delhi</option>
+            <option value="Bengaluru">Bengaluru, Karnataka</option>
+            <option value="Kolkata">Kolkata, West Bengal</option>
+            <option value="Chennai">Chennai, Tamil Nadu</option>
+            <option value="Hyderabad">Hyderabad, Telangana</option>
+            <option value="Pune">Pune, Maharashtra</option>
+            <option value="Ahmedabad">Ahmedabad, Gujarat</option>
+            <option value="Jaipur">Jaipur, Rajasthan</option>
+            <option value="Lucknow">Lucknow, Uttar Pradesh</option>
+            <option value="Bhopal">Bhopal, Madhya Pradesh</option>
+            <option value="Chandigarh">Chandigarh, Punjab & Haryana</option>
+            <option value="Bhubaneswar">Bhubaneswar, Odisha</option>
+            <option value="Dispur">Dispur, Assam</option>
+            <option value="Ranchi">Ranchi, Jharkhand</option>
+            <option value="Thiruvananthapuram">Thiruvananthapuram, Kerala</option>
+            <option value="Shimla">Shimla, Himachal Pradesh</option>
+            <option value="Dehradun">Dehradun, Uttarakhand</option>
+            <option value="Gangtok">Gangtok, Sikkim</option>
+            <option value="Aizawl">Aizawl, Mizoram</option>
+            <option value="Itanagar">Itanagar, Arunachal Pradesh</option>
+            <option value="Shillong">Shillong, Meghalaya</option>
+            <option value="Imphal">Imphal, Manipur</option>
+            <option value="Agartala">Agartala, Tripura</option>
+            <option value="Kohima">Kohima, Nagaland</option>
+            <option value="Panaji">Panaji, Goa</option>
+            <option value="Gandhinagar">Gandhinagar, Gujarat</option>
+            <option value="Patna">Patna, Bihar</option>
+        </select>
+        <button onclick="getWeather()">Get Weather</button>
+        <div class="weather-icon" id="weather-icon"></div>
+        <h3 id="weather"></h3>
+        <p class="time" id="time"></p>
+        <p class="advice" id="advice"></p>
+        <p class="temperature" id="temperature"></p>
+    </div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            document.getElementById("time").innerText = now.toLocaleTimeString();
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        function getWeather() {
+            const city = document.getElementById("city").value;
+            const weatherData = {
+                "Mumbai": { temp: "30°C", advice: "Wear light clothes & sunglasses! Stay hydrated." },
+                "Delhi": { temp: "25°C", advice: "Carry a mask due to air pollution. Stay indoors during peak pollution hours." },
+                "Bengaluru": { temp: "22°C", advice: "Mild weather, carry a light jacket for evenings." },
+                "Kolkata": { temp: "28°C", advice: "Expect humidity, wear breathable fabrics." },
+                "Chennai": { temp: "31°C", advice: "Use sunscreen and drink plenty of water." },
+                "Hyderabad": { temp: "27°C", advice: "Carry an umbrella during monsoons." },
+                "Jaipur": { temp: "32°C", advice: "Stay covered, desert heat can be intense." },
+                "Lucknow": { temp: "26°C", advice: "Comfortable weather, light clothing recommended." },
+                "Bhopal": { temp: "24°C", advice: "Carry an umbrella during sudden rains." },
+                "Chandigarh": { temp: "23°C", advice: "Cool winters, wear warm layers." },
+                "Bhubaneswar": { temp: "29°C", advice: "High humidity, wear light cotton clothes." },
+                "Dispur": { temp: "26°C", advice: "Rainy weather, carry waterproofs." },
+                "Ranchi": { temp: "25°C", advice: "Mild summers, chilly winters, dress accordingly." },
+                "Thiruvananthapuram": { temp: "28°C", advice: "Coastal humidity, stay hydrated." },
+                "Shimla": { temp: "15°C", advice: "Cold most of the year, wear warm clothes." },
+                "Dehradun": { temp: "20°C", advice: "Cool climate, a jacket is useful year-round." },
+                "Gangtok": { temp: "18°C", advice: "Hilly region, dress in layers." },
+                "Aizawl": { temp: "22°C", advice: "Frequent rains, carry an umbrella." },
+                "Itanagar": { temp: "24°C", advice: "Tropical climate, wear light clothing." },
+                "Shillong": { temp: "19°C", advice: "Foggy at times, wear warm layers." },
+                "Imphal": { temp: "21°C", advice: "Chilly winters, warm summers, dress accordingly." },
+                "Agartala": { temp: "27°C", advice: "Hot and humid, stay hydrated." },
+                "Kohima": { temp: "20°C", advice: "Moderate climate, light jackets recommended." },
+                "Panaji": { temp: "30°C", advice: "Beach weather, wear sunscreen." },
+                "Gandhinagar": { temp: "33°C", advice: "Hot summers, drink plenty of water." },
+                "Patna": { temp: "28°C", advice: "Extreme weather shifts, check forecasts before travel." }
+            };
+            document.getElementById("advice").innerText = weatherData[city].advice;
+            document.getElementById("temperature").innerText = `Temperature: ${weatherData[city].temp}`;
+        }
+    </script>
+</body>
+</html>
